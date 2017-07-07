@@ -276,9 +276,9 @@ I look forward to the day where Node supports `modules` that the browsers will
 support... We need something simple, sane, shared and scalable.
 
 If you check out the code, you will see this pattern used in nearly every shared
-file and in many cases it was needed because I needed to import the [WhatWG
+file and in many cases it was needed because I needed to import the [WHATWG
 streams reference
-implementation](https://github.com/whatwg/streams/tree/master/reference-implementation).
+implementation](https://github.com/WHATWG/streams/tree/master/reference-implementation).
 
 ### Crossed streams
 
@@ -288,12 +288,12 @@ completely different solutions. It was a nightmare to deal with in this project
 and we really need to standardize on a unified solution (ideally DOM Streams). 
 
 Luckily there is a full implementation of the [Streams
-API](https://github.com/whatwg/streams/tree/master/reference-implementation)
+API](https://github.com/WHATWG/streams/tree/master/reference-implementation)
 that you can bring in to Node, and all you have to do is write a couple of
 utilities to map from Web Stream -> Node Stream and Node Stream -> Web Stream.
 
 ```
-const nodeReadStreamToWhatWGReadableStream = (stream) => {
+const nodeReadStreamToWHATWGReadableStream = (stream) => {
     
   return new ReadableStream({
     start(controller) {
@@ -308,10 +308,10 @@ const nodeReadStreamToWhatWGReadableStream = (stream) => {
   });
 };
 
-class FromWhatWGReadableStream extends Readable {
-  constructor(options, whatwgStream) {
+class FromWHATWGReadableStream extends Readable {
+  constructor(options, WHATWGStream) {
     super(options);
-    const streamReader = whatwgStream.getReader();
+    const streamReader = WHATWGStream.getReader();
     
     pump(this);
 
@@ -332,7 +332,7 @@ class FromWhatWGReadableStream extends Readable {
 
 These two helper functions were only used in the Node side of this project and
 they were used to let me get data into Node API's that couldn't accept 
-WhatWG Streams and likewise to pass data into WhatWG Stream compatible APIs
+WHATWG Streams and likewise to pass data into WHATWG Stream compatible APIs
 that didn't understand Node Streams. I specifically needed this for the `fetch` 
 API in Node.
 
